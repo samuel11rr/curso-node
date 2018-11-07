@@ -4,8 +4,9 @@ const fs = require('fs');
 let crearArchivo = (base) => {
   return new Promise( (resolve, reject) => {
 
-    if ( !Number() ) {
-
+    if ( !Number( base ) ) {
+        reject(`El valor ${base} no es un número`);
+        return;
     }
     let data = '';
 
