@@ -14,6 +14,7 @@ switch ( comando ) {
     console.log( tarea );
     break;
 
+
     case 'listar':
       let listado = porHacer.getListado();
 
@@ -23,14 +24,21 @@ switch ( comando ) {
         console.log(`Estado: ${ tarea.completado }`);
         console.log('======================');
       }
-
       break;
+
 
     case 'actualizar':
       let actualizado = porHacer.actualizar( argv.descripcion, argv.completado );
       console.log(actualizado);
-
       break;
-  default:
-  console.log('Comando no reconocido');
+
+
+    case 'borrar':
+      let borrado = porHacer.borrar( argv.descripcion );
+      console.log('Eliminado'.red);
+      break;
+
+
+    default:
+      console.log('Comando no reconocido');
 }
