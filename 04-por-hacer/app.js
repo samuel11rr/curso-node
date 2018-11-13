@@ -15,7 +15,6 @@ switch ( comando ) {
     break;
 
     case 'listar':
-
       let listado = porHacer.getListado();
 
       for ( let tarea of listado ) {
@@ -28,7 +27,9 @@ switch ( comando ) {
       break;
 
     case 'actualizar':
-      console.log('actualizar una tarea');
+      let actualizado = porHacer.actualizar( argv.descripcion, argv.completado );
+      console.log(actualizado);
+
       break;
   default:
   console.log('Comando no reconocido');
