@@ -1,8 +1,11 @@
 require('./config/config');
 
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
+const express     = require('express');
+const mongoose    = require('mongoose');
+const bodyParser  = require('body-parser');
+
+const app         = express();
+
 
 //midleware
 app.use(bodyParser.urlencoded({ extended:false }));
@@ -30,7 +33,6 @@ app.post('/usuario', function (req, res) {
       persona: body
     });
   }
-
 });
 
 app.put('/usuario/:id', function (req, res) {
@@ -41,6 +43,13 @@ app.put('/usuario/:id', function (req, res) {
 
 app.delete('/usuario', function (req, res) {
   res.json('DELETE Usuario');
+});
+
+
+mongoose.connect('mongodb://localhost:27017/cafe', (err, res) => {
+  if (err)  throw err;
+
+  console.log('Base de datos ONLINE');
 });
 
 
