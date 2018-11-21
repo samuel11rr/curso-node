@@ -10,9 +10,9 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 let urlDB;
 
 if (process.env.NODE_ENV === 'dev') {
-  urlDB = 'mongodb://localhost:27017/cafe';
+  urlDB = 'mongodb://localhost:27017/<DB-NAME>';
 } else{
-  urlDB = 'mongodb://cafe-user:abc123@ds249737.mlab.com:49737/cafe';
+  urlDB = 'mongodb://<DB-USER>:<DB-PASSWORD>@ds249737.mlab.com:49737/<DB-NAME>';
 }
 
 process.env.URLDB = urlDB;
