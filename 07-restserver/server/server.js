@@ -3,6 +3,7 @@ require('./config/config');
 const express     = require('express');
 const mongoose    = require('mongoose');
 const bodyParser  = require('body-parser');
+const path        = require('path');
 
 const app         = express();
 
@@ -10,6 +11,10 @@ const app         = express();
 //midleware
 app.use(bodyParser.urlencoded({ extended:false }));
 app.use(bodyParser.json());
+
+
+// HABILITAR CARPETA PUBLIC
+app.use( express.static( path.resolve( __dirname, '../public' ) ) );
 
 
 // Configuracion global de rutas
