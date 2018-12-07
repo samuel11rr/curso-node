@@ -18,7 +18,8 @@ io.on('connection', (client) => {
 
     //estado actual
     client.emit('estadoActual', {
-        actual: ticketControl.getUltimoTicket()
+        actual:   ticketControl.getUltimoTicket(),
+        ultimos4: ticketControl.getUltimos4()
     });
 
 
@@ -36,8 +37,10 @@ io.on('connection', (client) => {
 
 
         // actualizar los ultimos 4
+        client.broadcast.emit('ultimos4', {
+            ultimos4: ticketControl.getUltimos4()
+        });
 
-        
     });
 
 }); // termina io.on('connection')

@@ -50,6 +50,11 @@ class TicketControl {
     } // termina getUltimoTicket()
 
 
+    getUltimos4(){
+        return this.ultimos4;
+    } // termina getUltimos4()
+
+
     atenderTicket( escritorio ){
         if ( this.tickets.length === 0 ) {
             return 'No hay tickets pendientes';
@@ -62,7 +67,7 @@ class TicketControl {
 
         this.ultimos4.unshift( atenderTicket ); // agrega un elemento al principio del array
 
-        if ( this.ultimos4 > 4 ) {
+        if ( this.ultimos4.length > 4 ) {
             this.ultimos4.splice(-1,1); // borra el ultimo elemento del array
         }
 
