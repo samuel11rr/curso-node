@@ -9,16 +9,19 @@ io.on('connection', ( client ) => {
 
     client.on('entrarChat', ( data, callback ) => {
 
-        if ( !data.nombre ) {
+        if ( !data.nombre || !data.sala ) {
             return callback({
               error: true,
-              mensaje: 'El nombre es necesario'
+              mensaje: 'El nombre/sala es necesario'
             });
         }
 
-        let personas = usuarios.agregarPersona( client.id, data.nombre );
+        client.join(data.sala);
 
-        client.broadcast.emit('listaPersona', usuarios.getPersonas());
+        let personas = usuarios.agregarPersona( client.id, data.nombre, data.sala );
+
+        // client.broadcast.emit('listaPersona', usuarios.getPersonas());
+        client.broadcast.to(data.sala).emit('listaPersona', usuarios.getPersonasPorSala( data.sala ));
 
         callback( personas );
     });
@@ -29,7 +32,7 @@ io.on('connection', ( client ) => {
 
         let mensaje = crearMensaje( persona.nombre, data.mensaje );
 
-        client.broadcast.emit( 'crearMensaje', mensaje );
+        client.broadcast.to(persona.sala).emit( 'crearMensaje', mensaje );
     })
 
 
@@ -37,8 +40,16 @@ io.on('connection', ( client ) => {
     client.on('disconnect', () => {
         let personaEliminada = usuarios.borrarPersona( client.id );
 
-        client.broadcast.emit('crearMensaje', crearMensaje( 'Administrador', `${ personaEliminada.nombre } salió` ));
-        client.broadcast.emit('listaPersona', usuarios.getPersonas());
+        client.broadcast.to(personaEliminada.sala).emit('crearMensaje', crearMensaje( 'Administrador', `${ personaEliminada.nombre } salió` ));
+        client.broadcast.to(personaEliminada.sala).emit('listaPersona', usuarios.getPersonasPorSala( personaEliminada.sala ));
+    });
 
+
+    // MENSAJES PRIVADOS
+    client.on('mensajePrivado', data => {
+        let persona = usuarios.getPersona( client.id );
+
+        // **** tenemos que validar data
+        client.broadcast.to( data.para ).emit( 'mensajePrivado', crearMensaje(  persona.nombre, data.mensaje) );
     });
 });
