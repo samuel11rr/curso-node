@@ -1,6 +1,7 @@
 "use strict";
-// PATRON SIGLETON
 Object.defineProperty(exports, "__esModule", { value: true });
+// PATRON SIGLETON
+// DOCUMENTACION https://github.com/mysqljs/mysql
 const mysql = require("mysql");
 class MySQL {
     constructor() {
