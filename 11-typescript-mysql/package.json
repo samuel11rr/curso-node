@@ -12,9 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "copyfiles": "^2.1.0",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "mysql": "github:mysqljs/mysql"
   },
   "devDependencies": {
-    "@types/express": "^4.16.1"
+    "@types/express": "^4.16.1",
+    "@types/mysql": "^2.15.5"
   }
 }
