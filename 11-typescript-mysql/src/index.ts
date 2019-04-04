@@ -7,7 +7,7 @@ const server = Server.init( 3000 );
 server.app.use( router );
 
 
-const mysql = new MySQL();
+// MySQL.instance;
 
 
 server.start( () => {

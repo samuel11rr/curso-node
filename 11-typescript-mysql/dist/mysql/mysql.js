@@ -14,6 +14,24 @@ class MySQL {
         });
         this.connectDB();
     }
+    //  prevenimos que se llame a la instancia mas de una vez
+    static get instance() {
+        return this._instance || (this._instance = new this());
+    }
+    static executeQuery(query, callback) {
+        this.instance.connection.query(query, (err, results, fields) => {
+            if (err) {
+                console.log('Error en query', err);
+                return callback(err);
+            }
+            if (results.length === 0) {
+                console.log('No existe el registro solicitado');
+            }
+            else {
+                callback(null, results);
+            }
+        });
+    }
     connectDB() {
         this.connection.connect((err) => {
             if (err) {
